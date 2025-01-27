@@ -4,7 +4,8 @@ import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 import { Contact } from "@/components/Contact";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { PianoPortfolio } from "@/components/PianoPortfolio";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   return (
@@ -12,7 +13,13 @@ const Index = () => {
       <ThemeToggle />
       <Hero />
       <Introduction />
-      <PianoPortfolio />
+      <div className="py-8 text-center">
+        <Link to="/piano-portfolio">
+          <Button variant="outline" size="lg">
+            View Piano Portfolio
+          </Button>
+        </Link>
+      </div>
       <Projects />
       <Skills />
       <Contact />
