@@ -4,6 +4,7 @@ import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 import { Contact } from "@/components/Contact";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { PianoPortfolio } from "@/components/PianoPortfolio";
 
 const Index = () => {
   return (
@@ -11,6 +12,7 @@ const Index = () => {
       <ThemeToggle />
       <Hero />
       <Introduction />
+      <PianoPortfolio />
       <Projects />
       <Skills />
       <Contact />
