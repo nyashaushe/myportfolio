@@ -1,5 +1,23 @@
-import { Music, Play, Award } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Music, Play, Award, Download } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
+import { createClient } from '@supabase/supabase-js';
+import { useEffect, useState } from "react";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
+
+interface MusicSheet {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  preview_url: string;
+}
 
 const performances = [
   {
@@ -16,7 +34,67 @@ const performances = [
   },
 ];
 
+const musicSheets: MusicSheet[] = [
+  {
+    id: "1",
+    title: "Moonlight Sonata Arrangement",
+    description: "A unique arrangement of Beethoven's famous piece",
+    price: 9.99,
+    preview_url: "/path-to-preview.pdf"
+  },
+  {
+    id: "2",
+    title: "Jazz Standards Collection",
+    description: "Collection of popular jazz standards with original annotations",
+    price: 14.99,
+    preview_url: "/path-to-preview.pdf"
+  }
+];
+
 export function PianoPortfolio() {
+  const { toast } = useToast();
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handlePurchase = async (sheet: MusicSheet) => {
+    if (!session) {
+      toast({
+        title: "Please sign in",
+        description: "You need to be signed in to purchase music sheets",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Here we'll implement Stripe checkout in the next step
+    toast({
+      title: "Coming Soon",
+      description: "Purchase functionality will be available soon!",
+    });
+  };
+
+  const handleSignIn = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin + '/piano-portfolio'
+      }
+    });
+  };
+
   return (
     <section className="py-20 px-4 animate-fadeIn" id="piano-portfolio">
       <div className="max-w-6xl mx-auto">
@@ -27,6 +105,11 @@ export function PianoPortfolio() {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Showcasing my journey through classical and contemporary piano performances
           </p>
+          {!session && (
+            <Button onClick={handleSignIn} className="mt-4">
+              Sign in to Purchase Music Sheets
+            </Button>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -55,7 +138,7 @@ export function PianoPortfolio() {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
           {performances.map((performance, index) => (
             <Card key={index} className="overflow-hidden hover:shadow-xl transition-shadow">
               <img
@@ -70,6 +153,45 @@ export function PianoPortfolio() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-16">
+          <h3 className="text-2xl font-bold text-center mb-8">Music Sheets</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {musicSheets.map((sheet) => (
+              <Card key={sheet.id} className="hover:shadow-lg transition-shadow">
+                <CardHeader>
+                  <CardTitle>{sheet.title}</CardTitle>
+                  <CardDescription>{sheet.description}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-lg font-bold">${sheet.price}</p>
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="outline">Preview</Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>{sheet.title} - Preview</DialogTitle>
+                      </DialogHeader>
+                      <div className="mt-4">
+                        <iframe
+                          src={sheet.preview_url}
+                          className="w-full h-[500px]"
+                          title={`Preview of ${sheet.title}`}
+                        />
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                  <Button onClick={() => handlePurchase(sheet)}>
+                    Purchase <Download className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>
