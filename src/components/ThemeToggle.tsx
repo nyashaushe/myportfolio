@@ -33,7 +33,6 @@ export function ThemeToggle() {
     <Button
       variant="outline"
       size="icon"
-<<<<<<< HEAD
       className="fixed top-4 right-4 rounded-full w-12 h-12 
         bg-background/80 backdrop-blur-sm hover:bg-accent 
         border-2 border-border/50 shadow-lg hover:shadow-xl
@@ -53,16 +52,6 @@ export function ThemeToggle() {
             text-slate-700 dark:text-slate-400" />
         </div>
       </div>
-=======
-      className="fixed top-4 right-4 rounded-full w-10 h-10 bg-background hover:bg-accent transition-colors duration-300"
-      onClick={toggleTheme}
-    >
-      {theme === "dark" ? (
-        <Sun className="h-5 w-5 animate-rotate-sun text-yellow-500" />
-      ) : (
-        <Moon className="h-5 w-5 text-slate-700 dark:text-slate-400" />
-      )}
->>>>>>> 3a5889b88f136186f2e6c33ececb4dcac5e6ae02
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

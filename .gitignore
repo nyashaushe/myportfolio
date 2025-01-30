@@ -26,3 +26,9 @@ dist-ssr
 # Large media files
 public/assets/videos/*
 !public/assets/videos/.gitkeep
+
+# Add these lines if not already present
+.env
+.env.local
+.env.development
+.env.production
