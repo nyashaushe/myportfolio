@@ -1,5 +1,3 @@
-
-
 ## Project info
 
 **URL**: https://lovable.dev/projects/25e7b3f2-1074-4ee5-9b91-2feafd54e342
@@ -63,3 +61,29 @@ Simply open [Lovable](https://lovable.dev/projects/25e7b3f2-1074-4ee5-9b91-2feaf
 ## I want to use a custom domain - is that possible?
 
 We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+
+## Assets
+
+The project uses the following asset structure:
+
+```
+public/
+  assets/
+    videos/
+      introduction.mp4  # Your introduction video
+      thumbnail.jpg    # Video thumbnail (optional)
+    documents/
+      cv.pdf          # Your CV
+```
+
+To add your own assets:
+1. Create the folders if they don't exist:
+   ```bash
+   mkdir -p public/assets/videos
+   mkdir -p public/assets/documents
+   ```
+2. Add your video as `public/assets/videos/introduction.mp4`
+3. Add your CV as `public/assets/documents/cv.pdf`
+4. Optionally add a video thumbnail as `public/assets/videos/thumbnail.jpg`
+
+Note: Large media files are ignored by git. If you want to track them, remove the relevant entries from `.gitignore`.

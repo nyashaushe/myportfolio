@@ -3,18 +3,26 @@ import { Button } from "@/components/ui/button";
 
 const projects = [
   {
-    title: "Project One",
-    description: "A full-stack application built with React and Node.js",
+    title: "Pamoja Pro",
+    description: "All in one app for project management, personal and business finance, digital marketing, CRM ",
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-    tech: ["React", "Node.js", "MongoDB", "Tailwind CSS"],
+    tech: ["React", "Node.js", "Postgress", "Tailwind CSS"],
     github: "#",
     demo: "#",
   },
   {
-    title: "Project Two",
-    description: "An e-commerce platform with real-time updates",
+    title: "Baobab Tech",
+    description: "A SAas startup on a race to modernise schools in Afrca",
     image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-    tech: ["React", "Firebase", "Stripe", "TypeScript"],
+    tech: ["React", "Node.js", "Postgress", "Tailwind CSS"],
+    github: "#",
+    demo: "#",
+  },
+  {
+    title: "Buildify",
+    description: "A construction company specialising in home, office designs and renovation",
+    image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+    tech: ["HTML", "CSS", "JAVASCRIPT", "LUCIDE ICONS"],
     github: "#",
     demo: "#",
   },

@@ -82,7 +82,11 @@ export default {
         "rotate-sun": {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
-        }
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -90,6 +94,10 @@ export default {
         fadeIn: "fadeIn 0.5s ease-out forwards",
         "slide-in": "slide-in 0.3s ease-out",
         "rotate-sun": "rotate-sun 10s linear infinite",
+        "spin-slow": "spin-slow 20s linear infinite",
+      },
+      transitionTimingFunction: {
+        'spring': 'cubic-bezier(0.4, 0, 0.2, 1)',
       },
     },
   },
