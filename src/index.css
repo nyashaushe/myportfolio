@@ -119,13 +119,18 @@
     transform: rotate(2deg);
   }
 
+  /* Base section styles without animation */
   section {
-    animation: float 8s ease-in-out infinite;
     position: relative;
     z-index: 1;
   }
 
-  section::after {
+  /* Apply animations only to piano portfolio */
+  section#piano-portfolio {
+    animation: float 8s ease-in-out infinite;
+  }
+
+  section#piano-portfolio::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -134,14 +139,13 @@
     z-index: -1;
   }
 
-  section:nth-child(2n) {
+  /* Keep the alternating delays only for piano portfolio */
+  section#piano-portfolio:nth-child(2n) {
     animation-delay: -1s;
   }
-  section:nth-child(3n) {
+
+  section#piano-portfolio:nth-child(3n) {
     animation-delay: -2s;
-  }
-  section:nth-child(4n) {
-    animation-delay: -3s;
   }
 }
 

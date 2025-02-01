@@ -3,18 +3,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { createClient } from '@supabase/supabase-js';
-import { useEffect, useState } from "react";
-
-// Create a single supabase client for interacting with your database
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 interface MusicSheet {
   id: string;
@@ -58,45 +46,11 @@ const musicSheets: MusicSheet[] = [
 
 export function PianoPortfolio() {
   const { toast } = useToast();
-  const [session, setSession] = useState<any>(null);
-
-  useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
 
   const handlePurchase = async (sheet: MusicSheet) => {
-    if (!session) {
-      toast({
-        title: "Please sign in",
-        description: "You need to be signed in to purchase music sheets",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Here we'll implement Stripe checkout in the next step
     toast({
       title: "Coming Soon",
       description: "Purchase functionality will be available soon!",
-    });
-  };
-
-  const handleSignIn = async () => {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: window.location.origin + '/piano-portfolio'
-      }
     });
   };
 
@@ -110,11 +64,6 @@ export function PianoPortfolio() {
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Showcasing my journey through classical and contemporary piano performances
           </p>
-          {!session && (
-            <Button onClick={handleSignIn} className="mt-4">
-              Sign in to Purchase Music Sheets
-            </Button>
-          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
