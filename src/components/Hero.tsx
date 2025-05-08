@@ -9,10 +9,10 @@ export function Hero() {
         Meet Nyasha
       </h1>
       <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
-        Your Creative Developer
+        Your Creative Software Developer
       </h1>
       <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8">
-        I build exceptional and accessible digital experiences for the web.
+        I build exceptional and accessible Full Stack Websites, AI Agents, Automations for your business that save you time because time is money!.
       </p>
       <div className="flex gap-4 mb-8">
         <Button variant="outline" size="lg" asChild>
